@@ -3,5 +3,6 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/leostore/public_html/
     - index.php $DEPLOYPATH
+    - composer install
     
     
