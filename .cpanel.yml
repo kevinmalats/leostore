@@ -3,6 +3,9 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/leostore/public_html/
     - index.php $DEPLOYPATH
-    - composer install
+    - cphp composer install
+    - php composer dumpautoload -o
+    - php artisan config:cache
+    - php artisan route:cache
     
     
