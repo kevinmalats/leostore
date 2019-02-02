@@ -20,7 +20,7 @@
 				{{Session::get('success')}}
 			</div>
 			@endif
-                                <p class="category">Registro de Productos</p>
+                                <p class="category">Actualizar Productos</p>
                             </div>
                             <div class="content table-responsive table-full-width">
 
@@ -29,18 +29,11 @@
                            <form method="POST" action="{{ route('producto.update',$productos->id) }}"  role="form" autocomplete="off" enctype = "multipart/form-data">
                                          
                                  	{{ csrf_field() }}
-							<input name="_method" type="hidden" value="{{ csrf_token() }}" name="_token">
+						<input name="_method" type="hidden" value="PATCH">
                                        
 
 
 
-                                        <div class="form-group">
-
-                                            {!! Form::label('codigo','Código') !!}
-                                           <input type="text" name="codigo" value="{{$productos->codigo}}" class="form-cpntrol input-sm"  required/>
-                                            {!! $errors->first('codigo','<span class="help-block">:message</span>') !!}
-
-                                        </div>
 
                                         <div class="form-group">
 
@@ -64,14 +57,19 @@
                                             <input type="number" name="precio" value="{{$productos->precio}}" class="form-cpntrol input-sm"  required/>
                                            
                                         </div>
+                                           <div class="form-group">
 
+                                            {!! Form::label('categoria','Categoria') !!}
+                                            <input type="text"  value="{{$productos->model_categoria->nombre}}" class="form-cpntrol input-sm" disabled  />
+                                           
+                                        </div>
 
 
                                         <div class="form-group">
         
                                         
         										@if($categorias->count())  
-        										<label class="" for="">Categoria</label>
+        										<label class="" for="">Cambiar Categoria</label>
         									<select class="form-control input-sm" name="categoria">
         										<option disabled selected>Elija la categoria</option>
         									         @foreach($categorias as $usuario)  
@@ -83,17 +81,20 @@
         								
                                         </div>
 
-                                        
+                                        <div class="form-group">
+                                          <img src="{{asset($productos->pathimage)}}">
+                                        </div>
 
                                         <div class="form-group"  method="post" enctype = "multipart/form-data" >
-                                            <label>Imagen Producto</label>
-                                            <input type="file" name="imagepath" src="" >
+                                            <label>Cambiar Imagen Producto</label>
+                                            <input type="file" name="imagepath" id="imagepath" >
 
                                         </div>
 
+
                                         <div class="form-group" method="POST" autocomplete="off" enctype = "multipart/form-data" >
 
-                                            {!! Form::submit('REGISTRAR',['class'=>'btn btn-primary']) !!}
+                                            {!! Form::submit('Editar',['class'=>'btn btn-primary']) !!}
                                             <!--@include('flash::message')-->
                                         </div>
 

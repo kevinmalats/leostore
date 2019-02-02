@@ -42,14 +42,14 @@
                                 <td class="mayusculas">{{ $producto->descripcion }}</td>
                                 <td class="mayusculas">{{ $producto->stock }}</td>
                                 <td class="mayusculas">{{ $producto->precio }}</td>
-                                <td ></td>
+                                <td class="mayusculas"><span class="label label-success">{{ $producto->model_categoria->nombre}}</span></td>
                                    
 
 
-                                <td class="d-md-table-row"> <a href="{{route('eliminaproducto',$producto->codigo)}}" onclick="return confirm('Seguro elimina el producto?')" class="btn btn-danger">
-                                <span class="fa fa-recycle"></span>
+                                <td class="d-md-table-row"> <a href="{{action('productoController@edit', $producto->id)}}"  class="btn btn-warning ">
+                                <span class="fa fa-upload"></span>
                                     </a>
-                                    <a href="{{route('productoedit',$producto->id)}}" class="btn btn-warning"><span class="fa fa-upload"></span></a></td>
+                                    <a href="{{action('productoController@destroy', $producto->id)}}" onclick="return confirm('Seguro elimina el producto?')" class="btn btn-danger"><span class="fa fa-recycle"></span></a></td>
                                 <!-- -->
 
                             </tr>

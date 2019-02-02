@@ -2,62 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use Laracasts\Flash\Flash;
 use App\model_producto;
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
-use Illuminate\Support\Facades\DB; 
 use Illuminate\Routing\Controller;
-use Illuminate\Database\Query\Builder;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
+use Intervention\Image\Facades\Image;
+use Illuminate\Validation\Validator;
 
 
 class productosController extends Controller
 {
-    //
-     public function index()
+    
+    
+      public function __construct()
     {
-        //
-         //
-        $productos=model_producto::orderBy('codigo','ASC')->paginate(3);
-        return view('Productos.index',compact('productos')); 
-    }
-
-    public function show()
-    {
-        $productos =  model_producto::orderBy('codigo','ASC')->paginate(4);
-
-
-        return view('Productos.create')->with('productos',$productos);
-        //dd($productos);
+        $this->middleware('auth');
 
     }
-
-    public function create()
-    {
-        $categorias=DB::table('tb_categorias')
+    
+public function princ(){
+    $categorias=DB::table('tb_categorias')
        ->select('nombre','id')
        ->get();
-        //dd('exito');
-      //return view('deUsuario/crearUsuario');
-        return view('Productos.create',[
+        return view('producto.princ',[
 	  		'categorias' => $categorias
 	  	]);
+}
+    public function consultar(){
+    //$categoria=$request["categoria"];
+    $productos= DB::table('tb_productos')->where('categoria', 1)->paginate(6);
+    $sections = $view->renderSections();
+    //return $sections('contenpro');
+}
 
-    }
-
-
-
-
-    public function store(Request $request)
+    public function ver()
     {
-        $producto = new model_producto($request->all());
-
-        $producto->save();
-
-
-
-
+        if(!isset($_GET["categoria"])){
+            $productos =  model_producto::orderBy('codigo','ASC')->paginate(20);
+        }else{
+            
+        $categoria=$_GET["categoria"]; 
+    if($categoria=="todos"){
+       $productos =  model_producto::orderBy('codigo','ASC')->paginate(20);  
+    }else
+       $productos=  model_producto::where('categoria',$categoria)->paginate(20);
     }
+       
+       
+        return view('producto.catalogo')->with('productos',$productos);
+    }
+ 
+
+    public function destroy($id)
+    {
+        model_producto::find($id)->delete();
+
+        Flash::warning("El producto codigo a sido borrado de forma exitosa..");
+
+         return redirect()->route('producto.index')->with('success','Registro eliminado satisfactoriamente');
+    
+    }
+
 
 
 

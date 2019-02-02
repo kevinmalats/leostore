@@ -16,9 +16,10 @@ class usuarioController extends Controller
     
     public function index()
     {
-        //
-         //
+        
         $usuarios=User::orderBy('id','DESC')->paginate(3);
+       // $usuarios=User::first();
+        //dd($usuarios->model_rol->descripcion);
         return view('Usuarios.index',compact('usuarios')); 
     }
 

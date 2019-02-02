@@ -32,4 +32,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    
+     public function model_rol (){
+        return $this->belongsTo("App\model_rol", 'rol');
+    }
 }

@@ -1,15 +1,14 @@
 @extends('referencias.cabecera.cabecera')
 @section('content')
-<style >
- .d{
-  
-  float:right; 
-  text-align:right;
- }
-</style>
+
 <div class="row">
   <section class="content">
     <div class="col-md-12">
+        @if(Session::has('success'))
+			<div class="alert alert-info">
+				{{Session::get('success')}}
+			</div>
+			@endif
         <div class="card">
         <div class="header">
       <div class="content table-responsive table-full-width">
@@ -59,10 +58,12 @@
         </div>
       </div>
       </div>
+      </div>
       {{ $categorias->links() }}
-    </div>
+    
   </div>
   </div>
 </section>
+ </div>
  
 @endsection

@@ -23,10 +23,10 @@ class productoController extends Controller
 
         $productos =  model_producto::orderBy('codigo','ASC')->paginate(4);
 
-
+        $categoria= $productos->categoriaProducto;
         //$productos = model_producto::paginate(5);
 
-        return view('producto.producto')->with('productos',$productos);
+        return view('producto.producto')->with('productos',$productos, 'categoria',$categoria);
 
             //view('producto.producto')->with('productos',$productos);
 

@@ -41,9 +41,7 @@
                                             <p class="lead">
                                                 ${{$producto->precio}}</p>
                                         </div>
-                                        <div class="col-xs-12 col-md-6">
-                                            <a class="btn btn-success" href="#">Añadir</a>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>

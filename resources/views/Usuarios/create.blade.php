@@ -15,11 +15,7 @@
 				</ul>
 			</div>
 			@endif
-			@if(Session::has('success'))
-			<div class="alert alert-info">
-				{{Session::get('success')}}
-			</div>
-			@endif
+		
  
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -69,7 +65,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
 										@if($roles->count())  
-										<label class="form-control input-sm" for="">Usuario</label>
+										<label class="form-control input-sm" for="">Rol</label>
 									<select class="form-control input-sm" name="rol">
 										<option disabled selected>Elija el rol</option>
 									         @foreach($roles as $rol)  

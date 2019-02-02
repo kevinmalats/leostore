@@ -25,7 +25,7 @@
                                 <div class="panel-body">
 
 
-                                    <form action="{{route('productoimage')}}"  method="POST" autocomplete="off" enctype = "multipart/form-data">
+                                    <form action="{{route('producto.store')}}"  method="POST" autocomplete="off" enctype = "multipart/form-data" role="form">
                                         @csrf
 
                                         <input type="hidden" value="{{ csrf_token() }}" name="_token" />

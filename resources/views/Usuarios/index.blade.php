@@ -8,9 +8,18 @@
  }
 </style>
 <div class="row">
-  <section class="content d">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default">
+  <section class="content">
+    <div class="col-md-12">
+       
+     
+ 	@if(Session::has('success'))
+			<div class="alert alert-info">
+				{{Session::get('success')}}
+			</div>
+			@endif
+			   <div class="card">
+        <div class="header">
+      <div class="content table-responsive table-full-width">
         <div class="panel-body">
           <div class="pull-left"><h3>Lista Usuarios</h3></div>
           <div class="pull-right">
@@ -43,16 +52,16 @@
                 <td>{{$usuario->telefono}}</td>
                 <td>{{$usuario->nombre}}</td>
                 <td>{{$usuario->apellido}}</td>
-                <td>{{$usuario->rol}}</td>
+                <td>{{$usuario->model_rol->descripcion}}</td>
                 <td>{{$usuario->created_at}}</td>
                 <td>{{$usuario->updated_at}}</td>
-                <td><a class="btn btn-primary btn-xs" href="{{action('usuarioController@edit', $usuario->id)}}" ><span class="fa fa-upload"></span></a></td>
+                <td><a class="btn btn-warning" href="{{action('usuarioController@edit', $usuario->id)}}" ><span class="fa fa-upload"></span></a></td>
                 <td>
                   <form action="{{action('usuarioController@destroy', $usuario->id)}}" method="post">
                    {{csrf_field()}}
                    <input name="_method" type="hidden" value="DELETE">
  
-                   <button class="btn btn-danger" type="submit"><span class="fa fa-recycle"></span></button>
+                    <a class="btn btn-danger"><button  type="submit"><span class="fa fa-recycle"></span></button></a>
                  </td>
                </tr>
                @endforeach 
@@ -64,11 +73,15 @@
             </tbody>
  
           </table>
-        </div>
-      </div>
+          </div>
+         </div>
+        
       {{ $usuarios->links() }}
     </div>
   </div>
+  </div>
+  </div>
 </section>
+ </div>
  
 @endsection

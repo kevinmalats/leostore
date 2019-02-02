@@ -24,7 +24,7 @@ class CreateTbProductosTable extends Migration
             $table->integer('stock')->unsigned()->default(0);
             $table->integer('categoria')->unsigned();
             $table->integer('precio');
-            $table->foreign('categoria')->references('id')->on('tb_categorias');
+            $table->foreign('categoria')->references('id')->on('tb_categorias')->onDelete('Cascade');
             $table->timestamps();
         });
     }

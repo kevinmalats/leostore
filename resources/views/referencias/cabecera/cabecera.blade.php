@@ -64,7 +64,7 @@
             </ul>
             <ul>
                  <li  data-toggle="collapsee" data-target="#">
-                    <a href="#"><i class=""></i>Tabla Roles <span class=""></span></a>
+                    <a href="#"><i class="fa fa-camera-retro"></i>Tabla Roles <span class=""></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="roles">
                     <li class="active"><a href="{{ route('Roles.index') }}"> Listar Roles</a></li>
@@ -85,15 +85,15 @@
                     <a href="#"><i class="fa fa-barcode fa-lg"></i> Productos <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="service">
-                    <li class="active" id="" ><a href="producto"> Ingreso de Productos</a></li>
-                    <li id=""><a href="listaproducto"> Lista de Productos</a></li>
+                    <li class="active" id="" ><a href="{{ route('producto.create') }}"> Ingreso de Productos</a></li>
+                    <li id=""><a href="{{ route('producto.index') }}"> Lista de Productos</a></li>
 
                 </ul>
 
             </ul>
         <ul>
                  <li  data-toggle="collapsee" data-target="">
-                    <a href="#"><i class=""></i>Tabla Favoritos <span class=""></span></a>
+                    <a href="#"><i class="glyphicon glyphicon-star"></i>Tabla Favoritos <span class=""></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="favoritos">
                     <li class="active"><a href="{{ route('favoritos.index') }}"> Listar Favoritos</a></li>
@@ -160,11 +160,13 @@
                                 <li><a href="#">Separated link</a></li>
                             </ul>
                         </li>
+                        <div class="pull-right">
                         <li>
                             <a href="logout">
                                 <p>Salir</p>
                             </a>
                         </li>
+                        </div>
                         <li class="separator hidden-lg hidden-md"></li>
                     </ul>
                 </div>

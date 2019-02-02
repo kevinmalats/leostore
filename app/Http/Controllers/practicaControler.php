@@ -8,6 +8,7 @@ use App\model_rol;
 use App\model_producto;
 use App\model_prod_favoritos;
 use DB;
+use App\Http\Controllers\WebServices;
 
 class practicaControler extends Controller
 {
@@ -124,5 +125,28 @@ class practicaControler extends Controller
         $categoria=model_categoria::all();
         return response()->json($categoria);
     }
+    
+    public function getEc(){
+        
+        include_once 'WebServices/WebServiceManagerCurl.php';
 
+      $webService = new WebServiceManagerCurl('https://spotifycharts.com/regional/ec/daily/latest/download');
+      
+      
+      
+      
+      $webService->get();
+      $webServicel = new WebServiceManagerCurl('https://spotifycharts.com/regional/global/daily/latest/download');
+      
+      $webServicel->get();
+      // return view('producto.artistasTest')->with('productos',$webService);
+        
+    }
+   public function getGlobal(){
+    
+}
+public function indexTest(){
+   return view('producto.indexTest');
+    
+}
 }

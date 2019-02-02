@@ -22,22 +22,15 @@ class productoController extends Controller
     public function index()
     {
 
-        $productos =  model_producto::orderBy('codigo','ASC')->paginate(4);
+        //$productos =  model_producto::orderBy('codigo','ASC');
+         $productos =  model_producto::orderBy('codigo','ASC')->paginate(4);
+         
+       // $categoria=$productos->model_categoria;
+      
 
-
-        //$productos = model_producto::paginate(5);
-
-        return view('producto.producto')->with('productos',$productos);
-
-            //view('producto.producto')->with('productos',$productos);
-
-        //$this->layout->content = View::make('frontend.premios')
-           // ->with('premiostexto',PremiosTexto::all())
-          //  ->with('premios', Premios::orderBy('ordem', 'ASC')->paginate(5));
-
+       return view('producto.index')->with('productos',$productos);
 
     }
-
 
     public function create()
     {
@@ -70,9 +63,10 @@ public function update(Request $request, $id)
     {
         //model_producto::find($id)->update($request->all());
           //$cod = model_producto::where('codigo','=',($request['codigo']))->first();
-    
-       $producto = model_producto::find($id);
+   
+      if($_FILES['imagepath']['name']!=''){
 
+      // echo "imagepatheeee";
        $file = Input::file('imagepath');
         $random = str_random(10);
        $nombre = $random.'-'.$file->getClientOriginalName();
@@ -82,78 +76,58 @@ public function update(Request $request, $id)
        $image = Image::make($file->getRealPath())->resize(150, 150);
 
        $image->save($path);
-       // $image->encode('data-url');
+        $image->encode('data-url');
 
-       $img_data = file_get_contents($path);
+      $img_data = file_get_contents($path);
 
 
 
-       $image = base64_encode($img_data);
-    $producto->pathimage = $url;
-    $producto->imagen = $image;
-    $producto->update($request->all());
+      $image = base64_encode($img_data);
+      $producto=model_producto::find($id);
+      $producto->pathimage = $url;
+       $producto->save();
+
+       //$producto->imagen = $image;
+       }
+    
+    model_producto::find($id)->update($request->all());
+   
    
     //flash('Registrado')->success();
    
     //return redirect()->route('producto');
-    return redirect()->route('producto.listaproducto')->with('success','Registro actualizado satisfactoriamente');
+    return redirect()->route('producto.index')->with('success','Registro actualizado satisfactoriamente');
  
     }
     public function show()
     {
-        $productos =  model_producto::orderBy('codigo','ASC')->paginate(8);
+        //$productos =  model_producto::orderBy('codigo','ASC');
+         $productos =  model_producto::orderBy('codigo','ASC')->paginate(4);
+         
+       // $categoria=$productos->model_categoria;
+      
 
-
-        return view('producto.listaproducto')->with('productos',$productos);
+       return view('producto.index')->with('productos',$productos);
     }
 
-public function princ(){
-    $categorias=DB::table('tb_categorias')
-       ->select('nombre','id')
-       ->get();
-        return view('producto.princ',[
-	  		'categorias' => $categorias
-	  	]);
-}
-    public function consultar(){
-    //$categoria=$request["categoria"];
-    $productos= DB::table('tb_productos')->where('categoria', 1)->paginate(6);
-    $sections = $view->renderSections();
-    //return $sections('contenpro');
-}
 
-    public function ver()
+
+    public function destroy($id)
     {
-        if(!isset($_GET["categoria"])){
-            $productos =  model_producto::orderBy('codigo','ASC')->paginate(20);
-        }else{
-            
-        $categoria=$_GET["categoria"]; 
-    if($categoria=="todos"){
-       $productos =  model_producto::orderBy('codigo','ASC')->paginate(20);  
-    }else
-       $productos=  model_producto::where('categoria',$categoria)->paginate(20);
-    }
-       
-       
-        return view('producto.catalogo')->with('productos',$productos);
-    }
-
-    public function destroy($codigo)
-    {
-        $productos =  model_producto::where('codigo',$codigo)->delete();
+        model_producto::find($id)->delete();
 
         Flash::warning("El producto codigo a sido borrado de forma exitosa..");
 
-        return redirect()->route('listaproducto');
-
+         return redirect()->route('producto.index')->with('success','Registro eliminado satisfactoriamente');
+    
     }
 
 
 
-    public function UploadImage(Request $request)
-{
+   
 
+    public function store(Request $request)
+    {
 
    /* $v = $request->validate([
 
@@ -205,7 +179,7 @@ public function princ(){
     //flash('Registrado')->success();
     Flash::success("Registro de producto satisfactorio!!");
 
-    return redirect()->route('producto');
+    return redirect()->route('producto.index');
 
    }
     //return $this->index();
@@ -214,24 +188,6 @@ public function princ(){
 
 
 
-
-
-
-}
-
-    public function store(Request $request)
-    {
-
-        $producto = new model_producto($request->all());
-        $producto->pathimage = \Symfony\Component\Process\getInput();
-        $producto->codigo = 'codigo';
-        $producto->descripcion = 'descripcion';
-        $producto->precio = 'precio';
-        $producto->categoria = 'categoria';
-
-
-
-        $producto->save();
 
 
 

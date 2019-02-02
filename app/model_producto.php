@@ -10,9 +10,14 @@ class model_producto extends Model
     protected $fillable = ['codigo','nombre','descripcion','precio','categoria','imagen','pathimage','updated_at','created_at'];
 
 
-   public function categoriaProducto()
+   public function model_categoria()
   {
         return $this->belongsTo('App\model_categoria','categoria');
   }
+    public function model_favorito()
+  {
+        return $this->hasOne('App\model_catmodel_favoritosegoria');
+  }
+  
 
 }

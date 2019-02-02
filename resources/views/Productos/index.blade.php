@@ -4,6 +4,11 @@
   <section class="content">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
+          @if(Session::has('success'))
+			<div class="alert alert-info">
+				{{Session::get('success')}}
+			</div>
+			@endif
         <div class="panel-body">
           <div class="pull-left"><h3>Lista Productos</h3></div>
           <div class="pull-right">

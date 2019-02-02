@@ -1,18 +1,20 @@
 @extends('referencias.cabecera.cabecera')
 @section('content')
-<style >
- .d{
-  
-  float:right; 
-  text-align:right;
- }
-</style>
+
+
 <div class="row">
   <section class="content">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="panel panel-default d">
-        <div class="panel-body">
-          <div class="pull-left"><h3>Lista Categorias</h3></div>
+    <div class="col-md-12">
+        	@if(Session::has('success'))
+			<div class="alert alert-info">
+				{{Session::get('success')}}
+			</div>
+			@endif
+      <div class="card">
+        <div class="header">
+      <div class="content table-responsive table-full-width">
+       <div class="panel-body">
+          <div class="pull-left"><h3>Lista Roles</h3></div>
           <div class="pull-right">
             <div class="btn-group">
               <a href="{{ route('Roles.create') }}" class="btn btn-info" >Añadir Rol</a>
@@ -32,13 +34,13 @@
                 <td>{{$usuario->descripcion}}</td>
                 <td>{{$usuario->created_at}}</td>
                 <td>{{$usuario->updated_at}}</td>
-                <td><a class="btn btn-primary btn-xs" href="{{action('RolController@edit', $usuario->id)}}" ><span class="fa fa-upload"></span></a></td>
+                <td><a class="btn btn-warning" href="{{action('RolController@edit', $usuario->id)}}" ><span class="fa fa-upload"></span></a></td>
                 <td>
                   <form action="{{action('RolController@destroy', $usuario->id)}}" method="post">
                    {{csrf_field()}}
                    <input name="_method" type="hidden" value="DELETE">
  
-                   <button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-recycle"></span></button>
+                   <a class="btn btn-danger"><button type="submit"><span class="fa fa-recycle"></span></button></a>
                  </td>
                </tr>
                @endforeach 
@@ -51,9 +53,11 @@
  
           </table>
         </div>
+         </div>
       </div>
       {{ $roles->links() }}
-    </div>
+</div>
+  
   </div>
 </section>
  
